@@ -14,15 +14,15 @@ def index():
     return "Hello world"
 @app.route('/predict',methods=['POST'])
 def predict():
-    t_height = request.form.get('cgpa')
+    t_glucose = request.form.get('glucose')
     t_bmi = request.form.get('BMI')
     t_dpf = request.form.get('DPF')
     t_age = request.form.get('age')
-    height = float(t_height)
+    glucose = float(t_glucose)
     bmi = float(t_bmi)
     dpf = float(t_dpf)
     age = float(t_age)
-    input_query = np.array([[height,bmi,dpf,age,1]])
+    input_query = np.array([[glucose,bmi,dpf,age,1]])
     predicted_probabilities = model.predict_proba(input_query)
     diabetic = predicted_probabilities[0,1]
     return jsonify({'Result':str(diabetic)})
